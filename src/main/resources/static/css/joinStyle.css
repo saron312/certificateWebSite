@@ -1,0 +1,214 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+
+
+.id_ok{
+  color:#008000;
+  display: none;
+  }
+
+  .id_already{
+  color:#6A82FB;
+  display: none;
+  }
+
+
+a{
+    text-decoration: none;
+    color: inherit;
+}
+
+a:hover{
+    text-decoration: underline;
+}
+
+header{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 120px;
+    background-color: burlywood;
+    color: white;
+}
+
+body{
+  padding-top: 120px;
+}
+
+
+header > div{
+    cursor: pointer;
+    width: 90%;
+    min-width: 1100px;
+    max-width: 1200px;
+    height: 100px;
+}
+header .title{
+    width: 60%;
+}
+
+header .title .logo,
+header .title .headTitle{
+    float: left;
+}
+
+header .title .headTitle{
+    margin-left: 20px;
+    margin-top: 40px;
+    font-size: 30px;
+    font-weight: 900;
+  }
+
+header .title .logo{
+    width: 80px;
+    height: 80px;
+    margin-left: 10px;
+    margin-top: 20px;
+}
+
+header .title .logo,
+header .title .headTitle{
+    display: inline-block;
+}
+
+header .title .test{
+    margin-bottom: 10%;
+}
+
+header .toolBar{
+    width: 40%;
+    float: right;
+}
+
+
+header .toolBar li{
+    display: inline-block;
+    margin-top: 45px;
+    font-size: 25px;
+    margin-left: 50px;
+}
+
+
+input{
+    border: 1px solid brown; /*input 테두리 색*/
+    line-height: 35px;
+    font-size: 12px;
+    padding-left: 10px; /*input placeholder 간격*/
+    padding-right: 10px;
+    vertical-align: 3px;
+
+  }
+
+
+  .whole {
+    padding: 10px;
+    background-color:burlywood; /* 회원가입창 색 */
+    min-height: 400px;
+    width: 600px;
+    margin: 100px auto;
+    box-sizing: border-box;
+    font-size: 11px;
+  }
+
+  .joinTitle { /*회원가입*/
+    text-align: center;
+    font-weight: 700;
+    color:darkgoldenrod;
+  }
+
+  .email input {
+    width: 80%;
+  }
+
+  .name input {
+    width: 80%;
+  }
+
+  .password input {
+    width: 80%;
+  }
+
+  .passwordCheck input {
+    width: 80%;
+  }
+
+  .phone_number input {
+    width: 80%;
+}
+
+  /*.phone {*/
+  /*  display: flex;*/
+  /*  justify-content: space-between; !*전화번호 칸 간격*!*/
+  /*  line-height: 35px;*/
+  /*}*/
+
+  /*#phone1 {*/
+  /*  width: 18%;*/
+  /*}*/
+
+  /*#phone2 {*/
+  /*  width: 30%;*/
+  /*}*/
+
+  /*#phone3 {*/
+  /*  width: 30%;*/
+  /*}*/
+
+
+  .error{
+    font-size: 1px;
+    height: 20px;
+    color:red;
+    font-weight: 700;
+  }
+
+    
+
+footer{
+    font-size: 20px;
+    height: 350px;
+    border-top: 2px solid darkblue;
+    background-color: antiquewhite;
+ }
+ 
+ footer .bottomContent{
+     min-width: 1100px;
+     max-width: 1200px;
+     margin: 0 auto;
+     
+ }
+ 
+ footer .footerLogo,
+ footer .bottomTitle,
+ footer .footerImage{
+    float: left;
+    padding-top: 30px;
+ }
+ 
+ footer .bottomContext{
+     float: left;
+     margin-top: 3%;
+ }
+ 
+ footer .footerLogo{
+     width: 80px;
+     height: 80px;
+     margin-right: 1%;
+ }
+ 
+ footer .bottomTitle{
+     margin-top: 2%;
+     font-size: 30px;
+     font-weight: 900;
+     color: darkblue;
+ }
+ 
+ footer .footerImage{
+     width: 150px;
+     height: 80px;
+     margin-left: 3%;
+ }
+

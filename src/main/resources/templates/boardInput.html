@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../css/mystyle.css">
+	<title>글 작성</title>
+</head>
+<body>
+<header>
+	<div onclick="location='home'">
+		<div class="title">
+			<img class="logo" src="/picture/titleLogo.png"></img>
+			<p class="headTitle">국가 자격증 협회</p>
+		</div>
+		<ul class="toolBar">
+			<li class="headTrainer" id="headTrainer"><a href="boardList">게시판</a></li>
+			<li><a th:href="${memberID == null}? login:'/'" th:text="${memberID} == null? 로그인:${memberID} "></a></li>
+			<li><a th:href="${memberID == null}? join:logout" th:text="${memberID} == null? 회원가입:로그아웃"></a></li>
+		</ul>
+	</div>
+</header>
+
+<h3 class="my-3 border-bottom pb-2">글 작성</h3>
+
+<form th:action="@{/writeSucces}" method="post">
+	<div class="mb-3">
+		<label for="title" class="form-label">제목</label>
+		<input type="text" name="title" id="title" class="form-control">
+	</div>
+	<!--	<div class="mb-3">-->
+	<!--		<label for="title" class="form-label">작성자</label>-->
+	<!--		<input type="text" name="id" id="id" class="form-control">-->
+	<!--	</div>-->
+	<div class="mb-3">
+		<label for="content" class="form-lebel">내용</label>
+		<textarea name="content" id="content" class="form-control" rows="10"></textarea>
+	</div>
+	<input type="submit" value="저장" class="btn btn-primary my-2">
+</form>
+</div>
+<footer>
+	<div class="bottomContent">
+		<img style="width:7%; height:7%; margin-right: 1%;"  class="footerLogo"  src="/picture/titleLogo.png"></img>
+		<p class="bottomTitle">국가 자격증 협회</p>
+		<img style="width: 15%; height: 15%;margin-left: 3%;" class="footerImage" src="/picture/footerImage.jpg"></img>
+		<p class="bottomContext">(주)중앙커뮤니케이션<br>
+			고객센터 : 1544-6333 ( AM 09:00 ~ PM 19:00 ) | FAX : 032-712-2742 | Email : help@nine2021.com<br>
+			주소 : 경기도 부천시 조마루로385번길 92, 1901~1903호 (원미동, 부천테크노밸리 유1센터) | 우편번호 : 14558<br>
+			대표 : 배성원 | 사업자등록번호 : 585-88-01930<br>
+			통신판매업 신고번호 제 2020-경기부천-4494 호<br><br>
+
+			Copyright © JANET Corp. All Right Reserved.</p>
+	</div>
+</footer>
+</body>
+</html>

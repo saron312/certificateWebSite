@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>국가 자격증 사이트</title>
+  <link rel="stylesheet" href="../css/homeStyle.css">
+  <link rel="shortcut icon" sizes="16x16" th:href="@{picture/favicon.ico}">
+</head>
+
+<body>
+<header>
+  <div onclick="location='home'">
+    <div class="title">
+      <img class="logo" src="picture/titleLogo.png"></img>
+      <h2 class="headTitle">국가 자격증 협회</h2>
+    </div>
+    <ul class="toolBar">
+      <li><a href="#">소개</a></li>
+      <li class="headTrainer" id="headTrainer"><a href="#" onclick="alert('로그인 후 이용 가능합니다.')">게시판</a></li>
+      <!--                <li><a href="login"><img th:src="@{/picture/member.png}" alt="로그인"></a></li>-->
+      <li><a th:href="${memberID == null}? login:'/'" th:text="${memberID} == null? 로그인:${memberID} "></a></li>
+      <li><a th:href="${memberID == null}? join:logout" th:text="${memberID} == null? 회원가입:로그아웃"></a></li>
+    </ul>
+  </div>
+</header>
+
+
+
+<footer>
+  <div class="bottomContent">
+    <img class="footerLogo" src="picture/titleLogo.png"></img>
+    <p class="bottomTitle">국가 자격증 협회</p>
+    <img class="footerImage" src="picture/footerImage.jpg"></img>
+    <p class="bottomContext">(주)중앙커뮤니케이션<br>
+      고객센터 : 1544-6333 ( AM 09:00 ~ PM 19:00 ) | FAX : 032-712-2742 | Email : help@nine2021.com<br>
+      주소 : 경기도 부천시 조마루로385번길 92, 1901~1903호 (원미동, 부천테크노밸리 유1센터) | 우편번호 : 14558<br>
+      대표 : 배성원 | 사업자등록번호 : 585-88-01930<br>
+      통신판매업 신고번호 제 2020-경기부천-4494 호<br><br>
+
+      Copyright © JANET Corp. All Right Reserved.</p>
+  </div>
+</footer>
+
+<script th:inline="javaScript">
+  if([[${memberID}]] != null){
+    document.getElementById('headTrainer').innerHTML='<a href="boardList">게시판</a>';
+  }
+</script>
+</body>
+
+</html>
+</body>
+</html>

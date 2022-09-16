@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"> 
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="mystyle.css">
+    <title>게시물 리스트 </title>
+</head>
+<body>
+  <div>
+        <h1 align="center" style= "width : 80%"> 게시판 목록 </h1>          
+        <form class="form1" th:action="@{/}"  method="post">
+            <input type="search" placeholder="Search" >
+            <button type="submit">Search</button>
+        </form>
+        <br/>
+        <table class="table table-hover" border="1" style= "width : 80%" >
+          <thead>
+                <tr align="center"  >
+                    <th style= "width : 10%">번호 </th>
+                    <th style= "width : 50%">제목 </th>
+                    <th style= "width : 20%">아이디</th>
+                    <th style= "width : 10%">삭제</th>
+                </tr>
+          </thead>
+          <tbody>
+              <tr th:each="">
+                  <td th:text="">1</td>
+                  <td>
+                      <a th:text="${}" th:href="@{/}">abc</a>
+                  </td>
+                  <td th:text="${}">abc</td>
+                  <td a th:href="@{/}">삭제</a></td>
+              </tr>
+          </tbody>
+      </table>
+       <p><a th:href="@{/}"><button id="btn1">새글 등록</button></a></p>
+      <div class="block1" >
+       <th:block th:each="">
+       <a th:href="@{/}">1</a>
+       <a th:href="@{/}">2</a>  
+        </th:block> 
+    </div>
+    </div>
+</body>
+</html>

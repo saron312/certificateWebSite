@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Join Membership</title>
+    <link rel="stylesheet" href="../css/joinStyle.css">
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous">
+    </script>
+
+    <script>
+
+        $(document).ready(function (){
+
+            var password2 = /^[a-z0-9_-]{5,20}$/g;
+            var email2 = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+            var phone_number2 = /^([01]{2})([0|1|6|7|8|9]{1})([0-9]{3,4})([0-9]{4})$/;
+
+            let idDB =false;
+            let passwordDB =false;
+            let emailDB =false;
+            let phone_numberDB =false;
+
+
+            $("#name").blur(function () {
+                $.ajax({
+                    url: '/idCheck',
+                    type: 'get',
+                    data: {id: $('#name').val()},
+                    dataType: 'text',
+                    success: function (check) {
+                        if (check === "true") {
+
+                            $("#idError").text('중복 아이디 입니다.');
+                            $("#idError").css('color', 'red');
+
+                        } else {
+                            let id2 = /^[a-z0-9_-]{5,20}$/g;
+
+                            if (!id2.test($("#name").val())) {
+                                $("#idError").text('아이디를 확인해 주세요');
+                                $('#idError').css('color', 'red');
+
+                                return idDB = false;
+
+                            } else {
+                                $('#idError').text('멋진 아이디네요!');
+                                $('#idError').css('color', 'blue');
+
+                                return idDB = true;
+                            }
+                        }
+                    },
+                    error: function () {
+                        alert("서버요청실패");
+                    }
+                })
+            });
+
+            $("#password").blur(function () {
+                if (password2.test($("#password").val())) {
+
+                    $("#passwordError2").text('비밀번호 입력 성공!');
+                    $('#passwordError2').css('color', 'blue');
+
+                    return passwordDB = true;
+
+                } else {
+                    $('#passwordError2').text('비밀번호를 확인해주세요');
+                    $('#passwordError2').css('color', 'red');
+
+                    return passwordDB = false;
+                }
+            });
+
+
+            $("#email").blur(function () {
+                if (email2.test($("#email").val())) {
+
+                    $('#emailError').text('이메일 입력 성공!');
+                    $('#emailError').css('color', 'blue');
+
+                    return emailDB = true;
+
+                } else {
+                    $('#emailError').text('이메일을 확인해주세요');
+                    $('#emailError').css('color', 'red');
+
+                    return emailDB = false;
+                }
+            });
+
+            $("#phone_number").blur(function () {
+                if (phone_number2.test($("#phone_number").val())) {
+
+                    $('#phone_numberError').text('핸드폰번호 입력 성공!');
+                    $('#phone_numberError').css('color', 'blue');
+                    return phone_numberDB = true;
+
+                } else {
+                    $('#phone_numberError').text('핸드폰번호를 확인해주세요');
+                    $('#phone_numberError').css('color', 'red');
+                    return phone_numberDB = false;
+                }
+            });
+
+            $("#test").click(function (){
+                var id =document.querySelector('#name');
+                var password=document.querySelector('#password');
+                var email=document.querySelector('#email');
+                var phone_number=document.querySelector('#phone_number');
+                var test = document.getElementById("test");
+
+
+                if(id.value =="" || password.value==""||email.value==""|| phone_number.value=="") {
+                    alert("빈칸을 채워주세요.")
+                }else if(idDB === true && passwordDB=== true && c() === true && emailDB=== true && phone_numberDB=== true ){
+
+                    alert("회원가입을 축하합니다.")
+
+                    test.type = "submit";
+                }else{
+                    alert("내용을 정확히 입력해주세요.")
+                }
+            });
+        });
+
+        function c(){
+            if(document.getElementById('passwordCheck').value!=''){
+                if(document.getElementById('password').value==document.getElementById('passwordCheck').value){
+                    document.getElementById('cc').innerHTML='비밀번호가 일치합니다.'
+                    document.getElementById('cc').style.color='blue';
+                    return true;
+                }
+                else{
+                    document.getElementById('cc').innerHTML='비밀번호가 일치하지 않습니다.';
+                    document.getElementById('cc').style.color='red';
+                    return false;
+                }
+            }
+        }
+
+    </script>
+</head>
+
+<body>
+
+<header>
+    <div onclick="location='home'">
+        <div class="title">
+            <img class="logo" src="picture/titleLogo.png">
+            <p class="headTitle">국가 자격증 협회</p>
+        </div>
+        <ul class="toolBar">
+            <li class="headTrainer" id="headTrainer"><a href="" onclick="alert('로그인 후 이용 가능합니다.')">게시판</a></li>
+            <li><a th:href="${memberID == null}? login:'/'" th:text="${memberID} == null? 로그인:${memberID} "></a></li>
+            <li><a th:href="${memberID == null}? join:logout" th:text="${memberID} == null? 회원가입:로그아웃"></a></li>
+        </ul>
+    </div>
+</header>
+
+
+<div class="wrap">
+    <div class="whole">
+        <br/><br/>
+        <div class="joinTitle"><h1 id="h1">회원가입</h1></div>
+        <br/><br/>
+
+        <form action="/join2" method="post">
+
+            <div class="name">
+                <input id="name" name="id" type="text" placeholder="아이디는 영문 소문자, 숫자, 특수문자(-,_.)를 사용해서 입력해 주세요.">
+                <p id="idError"></p>
+            </div>
+            <br/>
+
+            <div class="password">
+                <input id="password" name="password" type="password" placeholder="비밀번호는 영문 소문자 또는 숫자 또는 특수문자(-,_.) 두 가지 이상을 혼합해 주세요." onchange="c()">
+                <div id="passwordError" class="error"></div>
+                <p id ="passwordError2"></p>
+            </div>
+
+            <div class="passwordCheck">
+                <input id="passwordCheck" type="password" placeholder="비밀번호를 다시 입력해 주세요." onchange="c()">&nbsp;
+                <p id="cc"></p>
+                <div id="passwordCheckError" class="error"></div>
+            </div>
+
+            <div class="email">
+                <input id="email" name="email" type="text" placeholder="이메일은 영어 대소문자,특수문자,숫자 필수입력, 8-16글자로 입력해 주세요.">
+            </div>
+            <p id ="emailError"></p>
+            <br/>
+
+            <div class="phone_number">
+                <input id="phone_number" name="phone_number" type="text" size="1" maxlength="11" placeholder="전화번호는 -빼고 입력 01로 시작, 총 10-11글자로 입력해 주세요.">
+                </br>
+            </div>
+            <p id ="phone_numberError"></p>
+
+
+            <div class="signUp">
+                <input type="button" id="test" value="회원가입" onclick="check()">
+            </div>
+        </form>
+    </div>
+</div>
+
+</div>
+
+
+
+
+<footer>
+    <div class="bottomContent">
+        <img class="footerLogo" src="picture/titleLogo.png">
+        <p class="bottomTitle">국가 자격증 협회</p>
+        <img class="footerImage" src="picture/footerImage.jpg">
+        <p class="bottomContext">(주)중앙커뮤니케이션<br>
+            고객센터 : 1544-6333 ( AM 09:00 ~ PM 19:00 ) | FAX : 032-712-2742 | Email : help@nine2021.com<br>
+            주소 : 경기도 부천시 조마루로385번길 92, 1901~1903호 (원미동, 부천테크노밸리 유1센터) | 우편번호 : 14558<br>
+            대표 : 배성원 | 사업자등록번호 : 585-88-01930<br>
+            통신판매업 신고번호 제 2020-경기부천-4494 호<br><br>
+
+            Copyright © JANET Corp. All Right Reserved.</p>
+    </div>
+</footer>
+
+
+</body>
+
+
+
+</html>
