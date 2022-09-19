@@ -162,7 +162,8 @@ public class MyController {
         return String.format("redirect:/commentBoard/%s", bid);
     }
 
-
+    @RequestMapping("/about")
+    public String about() { return "about";}
 
     @RequestMapping("test")
     public String testPage(){
