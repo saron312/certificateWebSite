@@ -126,7 +126,6 @@ public class MyController {
         int next = nowPage+1;
 
         model.addAttribute("memberID", memberID);
-
         model.addAttribute("boardList", boardList);
         model.addAttribute("nowPage", nowPage);
         model.addAttribute("startPage", startPage);
