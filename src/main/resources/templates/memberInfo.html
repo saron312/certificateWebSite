@@ -25,7 +25,7 @@
       <h2 class="headTitle">국가 자격증 협회</h2>
     </div>
     <ul class="toolBar">
-      <li><a href="#">소개</a></li>
+      <li><a href="about">소개</a></li>
       <li class="headTrainer" id="headTrainer"><a href="#" onclick="alert('로그인 후 이용 가능합니다.')">게시판</a></li>
       <!--                <li><a href="login"><img th:src="@{/picture/member.png}" alt="로그인"></a></li>-->
       <li><a th:href="${memberID == null}? login:'/'" th:text="${memberID} == null? 로그인:${memberID} "></a></li>
