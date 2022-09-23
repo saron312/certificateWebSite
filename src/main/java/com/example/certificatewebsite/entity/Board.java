@@ -29,9 +29,19 @@ public class Board {
     @Column(nullable = false)
     private String content;
 
-    private LocalDateTime createDate;
+    @Column(nullable = false)
+    private String certificate;
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
     // 질문 하나에 여러개 답변이 작성될 수 있는데 질문을 삭제하면 그에 달린 답변들도 모두 함께 삭제하기 위해 Remove 사용
     private List<Comment> commentList;
+
+    @Column(columnDefinition = "integer default 0", nullable = false)
+    private int viewCount;
+
+    private LocalDateTime createDate;
+
+    @ManyToOne
+    private Member member;
+
 }

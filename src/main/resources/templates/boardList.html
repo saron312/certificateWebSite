@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/mystyle.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <title>게시물 리스트 </title>
 </head>
 
@@ -15,6 +16,7 @@
             <p class="headTitle">국가 자격증 협회</p>
         </div>
         <ul class="toolBar">
+            <li><a href="informIntroduce">소개</a></li>
             <li class="headTrainer" id="headTrainer"><a href="boardList">게시판</a></li>
             <li><a th:href="${memberID == null}? login:'/'" th:text="${memberID} == null? 로그인:${memberID} "></a></li>
             <li><a th:href="${memberID == null}? join:logout" th:text="${memberID} == null? 회원가입:로그아웃"></a></li>
@@ -22,47 +24,71 @@
     </div>
 </header>
 
+
+
 <div class="wrap">
+
     <h1> 게시판 목록 </h1>
-    <form class="form1" th:action="@{/boardList}" method="get">
-        <input type="search" name = "searchKeyword"  placeholder="Search">
-        <button type="submit">Search</button>
+    <form autocomplete="off" action="boardList" method="post">
+        <select class="select" name="selectKeyword" id="selectKeyword">
+            <option value="certificate">자격증</option>
+            <option value="title">제목</option>
+        </select>
+        <input class="search" type="search" name = "searchKeyword" id="searchKeyword" placeholder="Search"></input>
+        <button class="searchBtn" id="searchBtn" type="submit" >Search</button>
     </form>
     <br />
     <table class="table table-hover" border="1" style="padding: 5%;">
         <thead>
         <tr align="center">
-            <th style="width: 10%">번호 </th>
-            <th style="width: 40%">제목 </th>
-            <th style="width: 20%">작성자</th>
-            <th style="width: 20%">작성시간</th>
-            <th style="width: 10%">삭제</th>
+            <th style="width:6%">번호 </th>
+            <th style="width:12%">자격증 </th>
+            <th style="width:35%">제목 </th>
+            <th style="width:15%">작성자</th>
+            <th style="width:18%">작성시간</th>
+            <th style="width:7%">조회수</th>
+            <th style="width:7%">삭제</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="board:${boardList}">
             <td th:text="${board.bid}"></td>
-            <td>
+            <td th:text="${board.certificate}"></td>
+            <td class="boardTitle">
                 <!--            <a th:text="${board.title}"  onclick="location='commentBoard'"></a>-->
                 <!--        </td>-->
                 <a th:href="@{|/commentBoard/${board.bid}|}"
-                   th:text="${board.title}"></a></td>
+                   th:text="${board.title}"></a>
+                <span class="text-danger small ms-2" th:if="${#lists.size(board.commentList) > 0}"
+                      th:text="${#lists.size(board.commentList)}"></span>
+            </td>
             <td th:text="${board.id}"></td>
             <td th:text="${#temporals.format(board.createDate,
 				'yyyy-MM-dd HH:mm')}"></td>
-
+            <td th:text="${board.viewCount}"></td>
             <td ><a th:if="${board.id == memberID}" th:href="@{/deleteBoard(bid=${board.bid})}">삭제</a></td>
         </tr>
         </tbody>
     </table>
+    <div id="listWrap" th:if="${checkedSearch == 'false'}">
+        <p><a th:href="@{/boardInput}" class="btn btn-primary btn-lg">글 작성</a></p>
+        <a class="moveBefore" id="before" th:if="${nowPage != 0}" th:href="@{/boardList(page=${previous})}" th:text="이전"></a>
+        <th:block class="block1" th:each="page:${#numbers.sequence(startPage, endPage)}">
+            <a class="block1" id="pageList" th:if="${page -1 != nowPage}" th:href="@{/boardList(page=${page -1})}" th:text="${page}"></a>
+            <a class="block1" th:if="${page -1 == nowPage}" th:text="${page}" style="color:red"></a>
+        </th:block>
+        <a class="moveAfter" id="after" th:if="${nowPage+1 != endPage}" th:href="@{/boardList(page=${next})}" th:text="다음"></a>
+    </div>
 
-    <p><a th:href="@{/boardInput}" class="btn btn-primary btn-lg">글 작성</a></p>
-    <a th:if="${nowPage != 0}" th:href="@{/boardList(page=${previous})}" th:text="이전"></a>
-    <th:block class="block1" th:each="page:${#numbers.sequence(startPage, endPage)}">
-        <a  th:if="${page -1 != nowPage}" th:href="@{/boardList(page=${page -1},searchKeyword=${param.searchKeyword} )}" th:text="${page}"></a>
-        <a th:if="${page -1 == nowPage}" th:text="${page}" style="color:red"></a>
-    </th:block>
-    <a th:if="${nowPage+1 != endPage}" th:href="@{/boardList(page=${next})}" th:text="다음"></a>
+    <div id="searchlistWrap" th:if="${checkedSearch == 'true'}">
+        <p><a th:href="@{/boardInput}" class="btn btn-primary btn-lg">글 작성</a></p>
+        <a class="moveBefore" th:if="${nowPage != 0}" th:href="@{/searchBoardList(page=${previous}, selectKeyword=${selectKeyword}, searchKeyword=${searchKeyword})}" th:text="이전"></a>
+        <th:block class="block1" th:each="page:${#numbers.sequence(startPage, endPage)}">
+            <a class="block1"  th:if="${page -1 != nowPage}" th:href="@{/searchBoardList(page=${page -1}, selectKeyword=${selectKeyword}, searchKeyword=${searchKeyword})}" th:text="${page}"></a>
+            <a class="block1" th:if="${page -1 == nowPage}" th:text="${page}" style="color:red"></a>
+        </th:block>
+        <a class="moveAfter" th:if="${nowPage+1 != endPage}" th:href="@{/searchBoardList(page=${next},selectKeyword=${selectKeyword}, searchKeyword=${searchKeyword})}" th:text="다음"></a>
+    </div>
 </div>
 
 <footer>
@@ -79,6 +105,6 @@
             Copyright © JANET Corp. All Right Reserved.</p>
     </div>
 </footer>
-</body>
 
+</body>
 </html>

@@ -155,6 +155,7 @@
             <p class="headTitle">국가 자격증 협회</p>
         </div>
         <ul class="toolBar">
+            <li><a href="informIntroduce">소개</a></li>
             <li class="headTrainer" id="headTrainer"><a href="" onclick="alert('로그인 후 이용 가능합니다.')">게시판</a></li>
             <li><a th:href="${memberID == null}? login:'/'" th:text="${memberID} == null? 로그인:${memberID} "></a></li>
             <li><a th:href="${memberID == null}? join:logout" th:text="${memberID} == null? 회원가입:로그아웃"></a></li>
@@ -169,7 +170,7 @@
         <div class="joinTitle"><h1 id="h1">회원가입</h1></div>
         <br/><br/>
 
-        <form action="/join2" method="post">
+        <form action="/join" method="post">
 
             <div class="name">
                 <input id="name" name="id" type="text" placeholder="아이디는 영문 소문자, 숫자, 특수문자(-,_.)를 사용해서 입력해 주세요.">

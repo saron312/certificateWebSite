@@ -13,71 +13,69 @@ a:hover{
 }
 
  header{
-  position: fixed;
-  top: 0;
-  width: 100%;
-  height: 120px;
-  background-color: burlywood;
-  color: white;
-}
+     position: fixed;
+     top: 0;
+     width: 100%;
+     height: 120px;
+     background-color: burlywood;
+     color: white;
+ }
 
-body{
-padding-top: 120px;
-}
-
-
-header > div{
-  cursor: pointer;
-  width: 90%;
-  min-width: 1100px;
-  max-width: 1200px;
-  height: 100px;
-}
-header .title{
-  width: 60%;
-}
-
-header .title .logo,
-header .title .headTitle{
-  float: left;
-}
+ body{
+   padding-top: 120px;
+ }
 
 
-header .title .headTitle{
-  margin-left: 20px;
-  margin-top: 40px;
-  font-size: 30px;
-  font-weight: 900;
-}
+ header > div{
+     cursor: pointer;
+     width: 90%;
+     min-width: 1100px;
+     max-width: 1200px;
+     height: 100px;
+ }
+ header .title{
+     width: 50%;
+ }
 
-header .title .logo{
-  width: 80px;
-  height: 80px;
-  margin-left: 10px;
-  margin-top: 20px;
-}
+ header .title .logo,
+ header .title .headTitle{
+     float: left;
+ }
 
-header .title .logo,
-header .title .headTitle{
-  display: inline-block;
-}
+ header .title h2{
+     margin-left: 20px;
+     margin-top: 40px;
+     font-size: 30px;
+ }
 
-header .title .test{
-  margin-bottom: 10%;
-}
+ header .title .logo{
+     width: 80px;
+     height: 80px;
+     margin-left: 10px;
+     margin-top: 20px;
+ }
 
-header .toolBar{
-  width: 40%;
-  float: right;
-}
+ header .title .logo,
+ header .title h2{
+     display: inline-block;
+ }
+
+ header .title .test{
+     margin-bottom: 10%;
+ }
+
+ header .toolBar{
+     width: 50%;
+     float: right;
+ }
 
 
-header .toolBar li{
-  display: inline-block;
-  margin-top: 45px;
-  font-size: 25px;
-  margin-left: 50px;
-}
+ header .toolBar li{
+     display: inline-block;
+     margin-top: 45px;
+     font-size: 25px;
+     margin-left: 50px;
+ }
 
 .container-fulid{
   min-height: 800px;

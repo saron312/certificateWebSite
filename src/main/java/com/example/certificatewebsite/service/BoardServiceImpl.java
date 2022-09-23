@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -34,8 +35,13 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public Page<Board> searchBoardList(String searchKeyword, Pageable pageable) {
-        Page<Board> boards = boardRepository.findByTitleContaining(searchKeyword, pageable);
+    public Page<Board> searchBoardList(String selectKeyword ,String searchKeyword, Pageable pageable) {
+        Page<Board> boards = null;
+        if(selectKeyword.equals("certificate")){
+            boards = boardRepository.findByCertificateContaining(searchKeyword, pageable);
+        }else if(selectKeyword.equals("title")){
+            boards = boardRepository.findByTitleContaining(searchKeyword, pageable);
+        }
         return boards;
     }
 
@@ -56,22 +62,30 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public void input(String id, String title, String content) {
+    public void insertBoardList(String id, String title, String content, String certificate) {
         Board b = new Board();
         b.setId(id);
+        b.setCertificate(certificate);
         b.setTitle(title);
         b.setContent(content);
         b.setCreateDate(LocalDateTime.now());
         this.boardRepository.save(b);
     }
-
     @Override
-    public void writecomment(Board board, String comment) {
+    public void writeComment(Board board, String comment) {
         Comment c1 = new Comment();
         c1.setComment(comment);
         c1.setCreateDate(LocalDateTime.now());
         c1.setBoard(board);
         this.commentRepository.save(c1);
+    }
+
+
+
+    @Transactional
+    @Override
+    public void updateViewCount(Long bid) {
+        boardRepository.ViewCount(bid);
     }
 }
 

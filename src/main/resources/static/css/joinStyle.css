@@ -47,7 +47,7 @@ header > div{
     height: 100px;
 }
 header .title{
-    width: 60%;
+    width: 50%;
 }
 
 header .title .logo,
@@ -79,7 +79,7 @@ header .title .test{
 }
 
 header .toolBar{
-    width: 40%;
+    width: 50%;
     float: right;
 }
 

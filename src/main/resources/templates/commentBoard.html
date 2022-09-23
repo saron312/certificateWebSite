@@ -18,6 +18,7 @@
             <p class="headTitle">국가 자격증 협회</p>
         </div>
         <ul class="toolBar">
+            <li><a href="/informIntroduce">소개</a></li>
             <li class="headTrainer" id="headTrainer"><a href="/boardList">게시판</a></li>
             <li><a th:href="${memberID == null}? login:'/'" th:text="${memberID} == null? 로그인:${memberID} "></a></li>
             <li><a th:href="${memberID == null}? join:'/logout'" th:text="${memberID} == null? 회원가입:로그아웃"></a></li>
@@ -33,10 +34,9 @@
             <div class="card-text" style="white-space: pre-line;"
                  th:text="${board.content}"></div>
             <div class="d-flex justify-content-end">
-                <div class="badge bg-light text-dark p-2 text-start">
-                    <div
-                            th:text="${#temporals.format(board.createDate, 'yyyy-MM-dd HH:mm')}"></div>
-
+                <div class="badge bg-light text-dark p-2 text-left">
+                    <p class="writer">작성자 : [[${memberID}]]</p>
+                    <div th:text="${#temporals.format(board.createDate, 'yyyy-MM-dd HH:mm')}"></div>
                 </div>
             </div>
         </div>
@@ -48,8 +48,9 @@
     <div class="card my-3" th:each="comment : ${board.commentList}">
         <div class="card-body">
             <div class="card-text" style="white-space: pre-line;" th:text="${comment.comment}"></div>
-            <div class="d-flex justify-comment-end">
-                <div class="badge bg-light text-dark p-2 text-start">
+            <div class="d-flex justify-content-end">
+                <div class="badge bg-light text-dark p-2 text-left">
+                    <p class="writer">작성자 : [[${memberID}]]</p>
                     <div th:text="${#temporals.format(comment.createDate, 'yyyy-MM-dd HH:mm')}"></div>
                 </div>
             </div>
@@ -61,14 +62,6 @@
     <form th:action="@{|/comment/write/${board.bid}|}" method="post" class="my-3">
         <textarea name="comment" id="comment" rows="10" class="form-control"></textarea>
         <input type="submit" value="등록" class="btn btn-primary my-2">
-    </form>
-</div>
-
-<!-- 버튼 -->
-<div class="navbar navbar-light bg-light">
-    <form class="form-inline">
-        <button class="btn btn-outline-success" type="button"
-                onClick="history.back();">뒤로가기</button>
     </form>
 </div>
 
